@@ -2,6 +2,7 @@ import type { Config, Draft } from "./types";
 import { matchProduct } from "./productMatching";
 import { money, priceItem } from "./pricing";
 import { scaleRecipe } from "./recipeScaling";
+import { pickupSummary } from "./pickup";
 export const dietaryWarning =
   "Verify ingredients and cross-contact procedures before confirming. Customer requests are not allergen safety certification.";
 export function summarize(draft: Draft, config: Config) {
@@ -37,7 +38,8 @@ export function summarize(draft: Draft, config: Config) {
   const text = [
     `Draft quote${draft.confirmed ? " — operator reviewed" : " — awaiting operator review"}`,
     `Customer: ${draft.order.customer.name ?? "Not specified"}`,
-    `Fulfillment: ${draft.order.fulfillment.date_text ?? draft.order.fulfillment.date_iso ?? "Date review required"} / ${draft.order.fulfillment.time_text ?? "Time review required"} / ${draft.order.fulfillment.method}`,
+    `Customer requested: ${draft.order.fulfillment.date_text ?? "Date not specified"} / ${draft.order.fulfillment.time_text ?? "Time not specified"}`,
+    pickupSummary(draft, config),
     ...lines.map(
       (l) =>
         `${l.item.quantity ?? "?"} ${l.item.unit} ${l.product?.name ?? l.item.raw_name}: ${l.price.status === "RESOLVED" ? money(l.price.cents) : "Price review required"}${l.item.variation_notes.length ? " | " + l.item.variation_notes.join("; ") : ""}${l.item.dietary_notes.length ? " | Customer requested: " + l.item.dietary_notes.join("; ") : ""}${l.item.customer_notes.length ? " | " + l.item.customer_notes.join("; ") : ""}`,

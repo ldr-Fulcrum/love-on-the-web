@@ -5,6 +5,16 @@ export const draftSchema = z.object({
   order: orderSchema,
   selections: z.record(z.string(), z.string()),
   confirmed: z.boolean(),
+  reference: z
+    .object({
+      parsedAt: z.string(),
+      receivedDate: z.string(),
+      timeZone: z.string(),
+    })
+    .optional(),
+  pickup: z
+    .object({ time: z.string().nullable(), confirmed: z.boolean() })
+    .optional(),
 });
 export function readStored<T>(
   key: string,

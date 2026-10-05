@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { Config } from "../domain/types";
 import { configSchema } from "../domain/schemas";
+import { pickupPolicy, scheduleText } from "../domain/pickup";
 export function Settings({
   config,
   save,
@@ -10,11 +11,14 @@ export function Settings({
   save: (c: Config) => void;
   reset: () => void;
 }) {
-  const [text, setText] = useState(JSON.stringify(config, null, 2));
+  const settingsText = () =>
+    JSON.stringify({ ...config, pickup: pickupPolicy(config) }, null, 2);
+  const [text, setText] = useState(settingsText);
   const [status, setStatus] = useState("");
   return (
     <section>
       <h2>Bakery settings</h2>
+      <p>Pickup: {scheduleText(config)}</p>
       <p>
         The only seeded price is 24 cookies / 2 dozen = $30. Recipes and
         allergen metadata start unconfigured. Set exact tiers in integer cents.
@@ -52,7 +56,7 @@ export function Settings({
           </button>
           <button
             onClick={() => {
-              setText(JSON.stringify(config, null, 2));
+              setText(settingsText());
               setStatus("Editor refreshed from saved settings.");
             }}
           >

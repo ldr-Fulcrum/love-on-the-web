@@ -1,7 +1,9 @@
 import type { Config } from "../domain/types";
+import { defaultPickupPolicy } from "../domain/pickup";
 export const demoText =
   "Hey Dani, this is Sarah. Can I get 2 dozen chocolate chip cookies for next Friday afternoon? Make one dozen gluten-free if you can. I may also need a 9-inch pecan pie.";
 export const demoConfig: Config = {
+  pickup: defaultPickupPolicy,
   products: [
     {
       id: "cookies",

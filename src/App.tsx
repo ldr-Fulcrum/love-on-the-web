@@ -15,6 +15,7 @@ import { PrepSlip } from "./components/PrepSlip";
 import { Settings } from "./components/Settings";
 import { ModelStatus } from "./components/ModelStatus";
 import { OrderParseError, type ParseDiagnostics } from "./ai/completion";
+import { captureReference } from "./domain/pickup";
 import {
   MODEL_ID,
   extractOrder,
@@ -25,10 +26,14 @@ export default function App() {
   const [config, setConfig] = useState<Config>(() =>
     readStored("crumbcraft.config.v1", configSchema, demoConfig),
   );
-  const [draft, setDraft] = useState<Draft>(() => ({
-    ...readStored("crumbcraft.draft.v1", draftSchema, emptyDraft()),
-    confirmed: false,
-  }));
+  const [draft, setDraft] = useState<Draft>(() => {
+    const saved = readStored("crumbcraft.draft.v1", draftSchema, emptyDraft());
+    return {
+      ...saved,
+      confirmed: false,
+      pickup: { time: saved.pickup?.time ?? null, confirmed: false },
+    };
+  });
   const [text, setText] = useState("");
   const [status, setStatus] = useState("unloaded");
   const [progress, setProgress] = useState("");
@@ -62,9 +67,16 @@ export default function App() {
     setBusy(true);
     setError("");
     setDiagnostics(null);
+    const reference = captureReference(config);
     try {
       const order = await extractOrder(text, config);
-      setDraft({ order, selections: {}, confirmed: false });
+      setDraft({
+        order,
+        selections: {},
+        confirmed: false,
+        reference,
+        pickup: { time: null, confirmed: false },
+      });
     } catch (e) {
       if (e instanceof OrderParseError) setDiagnostics(e.diagnostics);
       setError(
@@ -147,7 +159,11 @@ export default function App() {
           config={config}
           save={(c) => {
             setConfig(c);
-            setDraft((d) => ({ ...d, confirmed: false }));
+            setDraft((d) => ({
+              ...d,
+              confirmed: false,
+              pickup: { time: d.pickup?.time ?? null, confirmed: false },
+            }));
           }}
           reset={() => {
             setConfig(structuredClone(demoConfig));

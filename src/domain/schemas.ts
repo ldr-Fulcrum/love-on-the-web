@@ -10,6 +10,32 @@ export const unitSchema = z.enum([
 ]);
 const nullableText = z.string().max(1000).nullable();
 const notes = z.array(z.string().max(2000)).max(50);
+const clockTime = z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/);
+export const pickupPolicySchema = z.object({
+  location: z.string().min(1),
+  timeZone: z.string().refine((value) => {
+    try {
+      new Intl.DateTimeFormat("en-US", { timeZone: value });
+      return true;
+    } catch {
+      return false;
+    }
+  }, "Use a valid IANA timezone"),
+  windows: z
+    .array(
+      z
+        .object({
+          weekday: z.number().int().min(0).max(6),
+          start: clockTime,
+          end: clockTime,
+        })
+        .refine(
+          (w) => w.start < w.end,
+          "Pickup window must end after it starts",
+        ),
+    )
+    .min(1),
+});
 export const itemSchema = z.object({
   raw_name: z.string().max(1000),
   normalized_product_hint: nullableText,
@@ -37,6 +63,7 @@ export const orderSchema = z.object({
 });
 export const configSchema = z
   .object({
+    pickup: pickupPolicySchema.optional(),
     products: z.array(
       z.object({
         id: z.string().min(1),

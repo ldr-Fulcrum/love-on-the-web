@@ -10,6 +10,8 @@ export type Draft = {
   order: OrderIntent;
   selections: Record<number, string>;
   confirmed: boolean;
+  reference?: { parsedAt: string; receivedDate: string; timeZone: string };
+  pickup?: { time: string | null; confirmed: boolean };
 };
 export const emptyItem = (): OrderItem => ({
   raw_name: "",

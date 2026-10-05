@@ -74,3 +74,11 @@ Submission assets: [DEV draft](docs/DEV_SUBMISSION_DRAFT.md), [90-second script]
 ### First device parse repair — 2026-10-05
 
 A user device attempt loaded Gemma but returned an invalid draft. The request now enables WebLLM schema-constrained JSON output, followed by the unchanged Zod validator. The app exposes recoverable JSON/schema/truncation diagnostics and session-only raw response on failure. Refresh and reload the cached model to retest. The 27-test local suite includes request-boundary and draft-preservation checks; it is not actual device inference or Contradictor proof. Both gates remain pending.
+
+### Pickup policy — 2026-10-05
+
+LDR-provided location: WinCo parking lot, Midwest City. Pickup windows: Wednesday 4-7 PM and Saturday 1-4 PM, America/Chicago, inclusive endpoints. Location, timezone and windows appear in review/settings and quote/prep. No address or delivery availability invented. Exact date/time must be reviewed with the customer; changes/reload revoke pickup confirmation. No out-of-window or Friday request is silently moved. The real catalog remains awaited.
+
+Parse start records the bakery-local reference date. For older pasted messages edit Message received date. Next weekday wording shows two unconfirmed candidate dates and marks pickup availability. Calendar calculation stays in code; the model contract stays unchanged.
+
+44 local tests pass; browser pickup checks use scripts/pickup-check.mjs. scripts/contradictor-check.mjs supplies a deterministic-domain adapter to an explicitly selected external kernel, pins its inspected source hash, requires a clean committed candidate and records 12 challenges in an external evidence directory. Set CRUMBCRAFT_CONTRADICTOR_PATH to that kernel source and CRUMBCRAFT_CONTRADICTOR_EVIDENCE to a fresh evidence directory, then run node scripts/contradictor-check.mjs. The kernel is not distributed in this MIT repository. This domain pass cannot establish real Gemma extraction correctness or independent acceptance. The 1000-order queue is not implemented.

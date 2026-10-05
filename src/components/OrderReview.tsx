@@ -1,6 +1,7 @@
 import type { Config, Draft, OrderItem, OrderIntent } from "../domain/types";
 import { emptyItem } from "../domain/types";
 import { matchProduct } from "../domain/productMatching";
+import { PickupReview } from "./PickupReview";
 export function OrderReview({
   draft,
   config,
@@ -11,7 +12,13 @@ export function OrderReview({
   onChange: (d: Draft) => void;
 }) {
   const update = (order: OrderIntent, selections = draft.selections) =>
-    onChange({ ...draft, order, selections, confirmed: false });
+    onChange({
+      ...draft,
+      order,
+      selections,
+      confirmed: false,
+      pickup: { time: draft.pickup?.time ?? null, confirmed: false },
+    });
   const editItem = (index: number, patch: Partial<OrderItem>) => {
     const selections = { ...draft.selections };
     if ("raw_name" in patch) {
@@ -96,6 +103,7 @@ export function OrderReview({
           </select>
         </label>
       </div>
+      <PickupReview draft={draft} config={config} onChange={onChange} />
       {draft.order.items.map((item, index) => {
         const match = matchProduct(item, config.products);
         const selected =

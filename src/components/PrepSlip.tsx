@@ -1,5 +1,6 @@
 import type { Config, Draft } from "../domain/types";
 import { dietaryWarning, summarize } from "../domain/quote";
+import { pickupSummary } from "../domain/pickup";
 export function PrepSlip({ draft, config }: { draft: Draft; config: Config }) {
   const { lines } = summarize(draft, config);
   return (
@@ -20,6 +21,7 @@ export function PrepSlip({ draft, config }: { draft: Draft; config: Config }) {
         · {draft.order.fulfillment.time_text ?? "Time review required"} ·{" "}
         {draft.order.fulfillment.method}
       </p>
+      <p>{pickupSummary(draft, config)}</p>
       {lines.map((l, i) => (
         <div className="prep-line" key={i}>
           <h3>
