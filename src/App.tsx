@@ -14,6 +14,7 @@ import { CustomerQuote } from "./components/CustomerQuote";
 import { PrepSlip } from "./components/PrepSlip";
 import { Settings } from "./components/Settings";
 import { ModelStatus } from "./components/ModelStatus";
+import { OrderParseError, type ParseDiagnostics } from "./ai/completion";
 import {
   MODEL_ID,
   extractOrder,
@@ -33,6 +34,7 @@ export default function App() {
   const [progress, setProgress] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [diagnostics, setDiagnostics] = useState<ParseDiagnostics | null>(null);
   const [storageError, setStorageError] = useState("");
   useEffect(() => {
     setStorageError(
@@ -59,10 +61,12 @@ export default function App() {
   async function parse() {
     setBusy(true);
     setError("");
+    setDiagnostics(null);
     try {
       const order = await extractOrder(text, config);
       setDraft({ order, selections: {}, confirmed: false });
     } catch (e) {
+      if (e instanceof OrderParseError) setDiagnostics(e.diagnostics);
       setError(
         e instanceof Error
           ? e.message
@@ -94,6 +98,28 @@ export default function App() {
           <p role="alert" className="warning">
             {storageError}
           </p>
+        )}
+        {diagnostics && (
+          <details className="no-print">
+            <summary>Local parser diagnostics</summary>
+            <p>
+              This response stays in this session. Share only synthetic test
+              orders.
+            </p>
+            <p>Finish reason: {diagnostics.finishReason}</p>
+            <ul>
+              {diagnostics.issues.map((issue, index) => (
+                <li key={index}>{issue}</li>
+              ))}
+            </ul>
+            <label htmlFor="parser-response">Raw model response</label>
+            <textarea
+              id="parser-response"
+              readOnly
+              rows={10}
+              value={diagnostics.rawResponse}
+            />
+          </details>
         )}
         <div className="intake-layout">
           <OrderIntake

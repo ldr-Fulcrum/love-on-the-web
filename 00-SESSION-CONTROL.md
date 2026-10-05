@@ -13,3 +13,7 @@ Verification evidence and final changed-file hashes are recorded in docs/BUILD_E
 ## SC-002 — 2026-10-05, local verification complete
 
 LOCAL_VERIFIED: 21/21 tests on Vitest 4.1.11; npm run typecheck and npm run build exit 0. Production Chromium workflow passed, including settings/config persistence, synthetic recipe scaling, clipboard, print handler/CSS and mobile overflow checks; no page errors. WebGPU API present but requestAdapter returned null: real local inference DEVICE_VERIFICATION_REQUIRED. Report and file manifest prepared. Source push authorized by LDR; main, visibility, deployment, release and submission untouched.
+
+## SC-003 — 2026-10-05, first live device extraction failure
+
+LDR supplied a screenshot showing Gemma ready but the demo extraction rejected as an invalid draft. PRESENTED_UNVERIFIED: screenshot proves the UI states shown, not the raw response or exact cause. Investigated adapter: it requested JSON only through prompt, without response_format schema constraints. Added JSON-object/schema constrained generation derived from the existing Zod order contract, length-truncation rejection, field-path diagnostics, and a session-only raw-response panel. Previous drafts remain intact on failure. No inferred missing values, remote API, persisted raw diagnostics or frozen acceptance changes. LOCAL_VERIFIED: 27 tests including six new boundary/recovery tests; production build checked separately. Actual repaired device flow and Contradictor validation remain pending; no inference PASS claimed.

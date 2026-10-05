@@ -52,3 +52,9 @@ Screenshots stay outside Git. The self-contained report and file manifest are pr
 ## Next action
 
 LDR: run DEVICE_VERIFICATION.md on the final WebGPU device and capture the real Gemma demo.
+
+## Device extraction repair — 2026-10-05
+
+The first user device screenshot showed model ready but rejected demo output. The exact malformed response was not available, so no specific generation error is asserted. The completion request now uses WebLLM response_format json_object with a JSON schema derived from the existing Zod order contract. Zod still validates every result. Truncated responses are rejected. Parser diagnostics identify JSON versus schema failures and show raw output in an expandable session-only panel; previous drafts survive failed parses. Raw diagnostics are not persisted or automatically transmitted.
+
+Local checks: 27 tests pass (original 21 plus six new completion/recovery checks). New tests use a mock transport and do not prove grammar execution or real inference. Real Gemma retest and Contradictor gate remain pending. Refresh the app, load the cached model, load the demo text and parse again. If it fails, expand Local parser diagnostics and capture the synthetic response and listed errors.

@@ -2,9 +2,12 @@
   "algorithm": "SHA256",
   "base": "a350302356e5becd7ea5287b7472510add64137f",
   "files": {
-    "00-SESSION-CONTROL.md": "6d74e0d4b9b0dc7d29d45abd2bf7947da06de57bd2fded4e1708efa63b9985bc",
-    "README.md": "53cf1dda877c2824fd20d39a1b9aa63da63d0794bf5b240696f063bc5d54ecf0",
-    "docs/BUILD_EVIDENCE.md": "f1c3bb6b8538ee84ed614fb2c9a13ca05be54ee03cce510976e8f8c1bdb5fd59",
+    ".gitignore": "b96c252a3ef9ab279c7fda8689fbb4d8752c04c69a1b937bf2043a9172e0cd72",
+    "00-SESSION-CONTROL.md": "142e2bb6f52356b77954636f41c094d387eeec7d1a41b626c005116efb5c4c1a",
+    "CODEX_START_HERE.md": "d0e7612129d03510c1afb1980fd0423a9df02fdbe28412cf8dfc3af8d1c1fe78",
+    "LICENSE": "ac8694fd9319c9fd1e91b9930c7925d1776a86318cc75ea81ad8d3ee88721704",
+    "README.md": "19f8ab2af68d8c194acdd45d52549ba9d87dfbc737875addd0f05419bc95fda0",
+    "docs/BUILD_EVIDENCE.md": "08cb362fd007bed45e2ab54551764f1f7ccc11a00ee104a569a60ce983ac4d5f",
     "docs/DEMO_SCRIPT.md": "66c94f6fb5a5da163bfc0926df50017182c978b29a595482edbba03c9ced5c87",
     "docs/DEVICE_VERIFICATION.md": "c5a6f596f63ab3afa59c88683745adbfbaf64bccaefb56ec95417b0ee2c0f53a",
     "docs/DEV_SUBMISSION_DRAFT.md": "17875afc09633083e047e91aaaf3655003efdb324baf6b95edab7eb162699dc5",
@@ -13,10 +16,11 @@
     "package-lock.json": "cee5429045490d00c89c3835aa4ca7103f80d4be4a70a898c3fff873aa4811be",
     "package.json": "3583e2ce3971bccc172ee950907c6530eedc734793ee8b89e5fcc4a557fbde17",
     "scripts/browser-check.mjs": "e138dc415b6ed250b4c467f53b293ae748c2d23133d6b0ef4e880059b5f24582",
-    "src/App.tsx": "921d09d94335a18bc81b78ed490352b69106c74716d8490ee34b0ed86e41bad2",
-    "src/ai/orderParser.ts": "5fb8c75d7cc351dc16a9e963d069e81505691970783a0d07b09c957415a75cf9",
+    "src/App.tsx": "84549c8330cc97be9af7d886666cead6cd46a0cc562864ce297a74248d4252d6",
+    "src/ai/completion.ts": "b0bcf4f19ba263a42dd12b90a354445662bf47cfc42b2587f211de62331f9d7f",
+    "src/ai/orderParser.ts": "7e07a0d2f251ccc599ed0bd04b364dbcb7bd9af139aa4741c8684caefd25a27e",
     "src/ai/prompt.ts": "5b79017192aacd0d4216443078e0cf6902745082fb78726f083b9266815aa5f1",
-    "src/ai/webllm.ts": "5b4b9c43e6e8a3d9262729ac290df0b129621f112185e20308baa971356c46b6",
+    "src/ai/webllm.ts": "4b2be58b5ade6d38b4d8e7bdccfc8cd8067c9dd66787b8f21f8fa1955d48513e",
     "src/components/CustomerQuote.tsx": "eb0a817cf787ddda552afddf67579ec02972f69a5d6a64caef89a124fc6d7224",
     "src/components/ModelStatus.tsx": "ec0be65de026c96edc73b0cbff2173e08b172b42856b2ea166bd9e57a2ba6bb4",
     "src/components/OrderIntake.tsx": "10abd1120032af3d10dd7bfc215193e6cb16b8c54cb24d24cedaa3931a07196a",
@@ -34,8 +38,11 @@
     "src/storage/configStore.ts": "062dd7f26f55495374b59bf5044dd7fc4a55b1b05baa537512669d13baf6fccb",
     "src/style.css": "d2ac408889a8e30c324a5e0431cf96daf63e2283dae7461b793040e62f03e816",
     "src/tests/acceptance.test.tsx": "c56a97cef52729bf972d6965990ad4b7864206552e3ffd190cc3c23edd9184e9",
+    "src/tests/extraction.test.ts": "2b3503e6f229a71ef989ec4307996ee4fa0719d0b4bec77197b913106dc9246a",
+    "src/tests/parser-recovery.test.tsx": "ed1d8a6a19b83e71b194773ff064d8ace1246eaba7466f04d081792b36639556",
     "tsconfig.json": "ed070db2c8d988b9b4fbdb7083a40aa9fdb9d2e9486a25961367a76266918b54",
     "vite.config.ts": "591179b31ed87afa42620b7315f5c7cc5a5371797d5a835988c7ece67f679fff"
   },
-  "representation": "Git staged blob bytes (canonical repository content)"
+  "representation": "Git staged blob bytes (canonical repository content)",
+  "previousCandidate": "b82c26cc43ea1369c560da7051d2db745dd3198f"
 }

@@ -1,7 +1,6 @@
 import type { MLCEngine } from "@mlc-ai/web-llm";
 import type { Config } from "../domain/types";
-import { systemPrompt } from "./prompt";
-import { parseResponse } from "./orderParser";
+import { extractWithClient } from "./completion";
 // Verified against WebLLM 0.2.85 prebuiltAppConfig; rechecked when loaded.
 export const MODEL_ID = "gemma-2-2b-it-q4f16_1-MLC";
 export const webgpuAvailable = () =>
@@ -22,15 +21,5 @@ export async function loadModel(progress: (text: string) => void) {
 }
 export async function extractOrder(text: string, config: Config) {
   if (!engine) throw new Error("Load Local Gemma first.");
-  const completion = await engine.chat.completions.create({
-    messages: [
-      { role: "system", content: systemPrompt(config) },
-      { role: "user", content: text },
-    ],
-    temperature: 0.1,
-    max_tokens: 2048,
-  });
-  const result = parseResponse(completion.choices[0]?.message.content ?? "");
-  if (!result.ok) throw new Error(result.error);
-  return result.order;
+  return extractWithClient(engine, text, config);
 }

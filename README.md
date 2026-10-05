@@ -70,3 +70,7 @@ Real model inference: **DEVICE_VERIFICATION_REQUIRED**. Compiling the adapter an
 Acceptance IDs AT-P01–04, AT-N01–05, AT-S01, AT-L01 and AT-I01–04 are implemented in `src/tests/acceptance.test.tsx`, plus boundary regressions. Vitest disables Node's experimental webstorage in its worker so jsdom owns browser storage. Browser QA uses `scripts/browser-check.mjs`; set `CRUMBCRAFT_QA_DIR` to an external evidence directory, start Vite and run it. Browser checks are synthetic manual workflow evidence, not model inference proof.
 
 Submission assets: [DEV draft](docs/DEV_SUBMISSION_DRAFT.md), [90-second script](docs/DEMO_SCRIPT.md), [screenshot checklist](docs/SCREENSHOT_CHECKLIST.md). Personal feedback and recording placeholders remain explicit. The repo is private; no visibility change, deployment, publication or hackathon submission is performed. Application MIT license does not supersede upstream Gemma model terms.
+
+### First device parse repair — 2026-10-05
+
+A user device attempt loaded Gemma but returned an invalid draft. The request now enables WebLLM schema-constrained JSON output, followed by the unchanged Zod validator. The app exposes recoverable JSON/schema/truncation diagnostics and session-only raw response on failure. Refresh and reload the cached model to retest. The 27-test local suite includes request-boundary and draft-preservation checks; it is not actual device inference or Contradictor proof. Both gates remain pending.
